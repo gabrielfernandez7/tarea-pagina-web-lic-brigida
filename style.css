@@ -1,0 +1,98 @@
+/* Tipografía y cuerpo */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #003366;
+  }
+  
+  .navbar-brand, .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+  }
+  
+  .navbar-toggler {
+    border-color: white;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  /* Títulos de sección */
+  .section-title {
+    color: #003366;
+    font-weight: 600;
+    margin-bottom: 25px;
+    border-left: 5px solid #003366;
+    padding-left: 10px;
+  }
+  
+  /* Tarjetas del panel de monitoreo */
+  .card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Colores por estado */
+  .text-danger {
+    color: #dc3545 !important;
+  }
+  
+  .text-success {
+    color: #28a745 !important;
+  }
+  
+  .text-warning {
+    color: #ffc107 !important;
+  }
+  
+  /* Botones */
+  .btn-primary {
+    background-color: #00509e;
+    border-color: #00509e;
+  }
+  
+  .btn-primary:hover {
+    background-color: #003f7d;
+    border-color: #003f7d;
+  }
+  
+  /* Tabla dashboard */
+  .table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .badge {
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+    border-radius: 0.5em;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #003366;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  footer a i {
+    color: #ffffff;
+    margin: 0 10px;
+    transition: color 0.2s;
+  }
+  
+  footer a i:hover {
+    color: #00aced;
+  }
+  

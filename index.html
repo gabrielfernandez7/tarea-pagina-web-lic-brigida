@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmaLab - Compra de Medicamentos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c7873;
+            --secondary-color: #6fb98f;
+            --accent-color: #f8b400;
+            --light-color: #f0f7f4;
+            --dark-color: #004445;
+            --text-color: #333;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            background-color: var(--dark-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 68, 69, 0.8), rgba(0, 68, 69, 0.8)), url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .product-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+            border-color: var(--dark-color);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #333;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+        
+        .badge-sale {
+            background-color: var(--accent-color);
+            color: #333;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-flask me-2"></i>FarmaLab
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-home me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#productos"><i class="fas fa-pills me-1"></i> Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-phone me-1"></i> Contacto</a>
+                    </li>
+                </ul>
+                <div>
+                    <button class="btn btn-outline-light me-2">
+                        <i class="fas fa-user me-1"></i> Iniciar Sesión
+                    </button>
+                    <button class="btn btn-accent">
+                        <i class="fas fa-shopping-cart me-1"></i> Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Medicamentos de Calidad para tu Salud</h1>
+            <p class="lead mb-4">Laboratorio farmacéutico certificado con los más altos estándares de calidad</p>
+            <a href="#productos" class="btn btn-primary btn-lg">
+                <i class="fas fa-arrow-down me-2"></i>Ver Productos
+            </a>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section id="productos" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Nuestros Medicamentos</h2>
+            <div class="row">
+                <!-- Producto 1 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <span class="badge badge-sale position-absolute top-0 end-0 m-2">OFERTA</span>
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1030&q=80" class="card-img-top product-img" alt="Paracetamol">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Paracetamol 500mg</h5>
+                            <p class="card-text">Caja con 20 tabletas. Alivia el dolor y reduce la fiebre.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 15.00</span>
+                                    <span class="old-price ms-2">Bs. 18.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn" 
+                                        data-name="Paracetamol 500mg"
+                                        data-price="15.00"
+                                        data-img="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1030&q=80"
+                                        data-desc="Caja con 20 tabletas. Alivia el dolor y reduce la fiebre.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="card-img-top product-img" alt="Ibuprofeno">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Ibuprofeno 400mg</h5>
+                            <p class="card-text">Caja con 30 tabletas. Reduce inflamación y dolor.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 25.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn"
+                                        data-name="Ibuprofeno 400mg"
+                                        data-price="25.00"
+                                        data-img="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                                        data-desc="Caja con 30 tabletas. Reduce inflamación y dolor.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <span class="badge badge-sale position-absolute top-0 end-0 m-2">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" class="card-img-top product-img" alt="Amoxicilina">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Amoxicilina 500mg</h5>
+                            <p class="card-text">Caja con 12 cápsulas. Tratamiento para infecciones bacterianas.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 45.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn"
+                                        data-name="Amoxicilina 500mg"
+                                        data-price="45.00"
+                                        data-img="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
+                                        data-desc="Caja con 12 cápsulas. Tratamiento para infecciones bacterianas.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1240&q=80" class="card-img-top product-img" alt="Omeprazol">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Omeprazol 20mg</h5>
+                            <p class="card-text">Caja con 14 cápsulas. Protege el estómago y reduce la acidez.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 30.00</span>
+                                    <span class="old-price ms-2">Bs. 35.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn"
+                                        data-name="Omeprazol 20mg"
+                                        data-price="30.00"
+                                        data-img="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1240&q=80"
+                                        data-desc="Caja con 14 cápsulas. Protege el estómago y reduce la acidez.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 5 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" class="card-img-top product-img" alt="Amoxicilina">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Loratadina 10mg</h5>
+                            <p class="card-text">Caja con 10 tabletas. Antihistamínico para alergias.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 28.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn"
+                                        data-name="Loratadina 10mg"
+                                        data-price="28.00"
+                                        data-img="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80"
+                                        data-desc="Caja con 10 tabletas. Antihistamínico para alergias.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Producto 6 -->
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card product-card h-100">
+                        <span class="badge badge-sale position-absolute top-0 end-0 m-2">OFERTA</span>
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="card-img-top product-img" alt="Ibuprofeno">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Diclofenaco 50mg</h5>
+                            <p class="card-text">Caja con 20 tabletas. Antiinflamatorio no esteroideo.</p>
+                            <div class="mt-auto">
+                                <div class="mb-3">
+                                    <span class="price">Bs. 22.00</span>
+                                    <span class="old-price ms-2">Bs. 25.00</span>
+                                </div>
+                                <button class="btn btn-primary w-100 buy-btn"
+                                        data-name="Diclofenaco 50mg"
+                                        data-price="22.00"
+                                        data-img="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                                        data-desc="Caja con 20 tabletas. Antiinflamatorio no esteroideo.">
+                                    <i class="fas fa-cart-plus me-2"></i>Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Compra (Modal) -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Complete su Pedido</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card mb-4">
+                                <img id="modalProductImg" src="" class="card-img-top" alt="Producto">
+                                <div class="card-body">
+                                    <h5 id="modalProductName" class="card-title"></h5>
+                                    <p id="modalProductDesc" class="card-text"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="price" id="modalProductPrice"></span>
+                                            <span class="old-price ms-2" id="modalOldPrice"></span>
+                                        </div>
+                                        <div class="input-group" style="width: 120px;">
+                                            <button class="btn btn-outline-secondary" type="button" id="decreaseQty">-</button>
+                                            <input type="number" class="form-control text-center" value="1" min="1" id="productQty">
+                                            <button class="btn btn-outline-secondary" type="button" id="increaseQty">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted">Resumen del Pedido</h6>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Subtotal:</span>
+                                        <span id="subtotal">Bs. 0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Envío:</span>
+                                        <span>Bs. 15.00</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold">
+                                        <span>Total:</span>
+                                        <span id="totalPrice">Bs. 0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <form id="orderForm">
+                                <h6 class="mb-3">Información de Contacto</h6>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label for="firstName" class="form-label">Nombres</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Apellidos</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Teléfono/Celular</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mb-3">Dirección de Envío</h6>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-12">
+                                        <label for="address" class="form-label">Dirección</label>
+                                        <input type="text" class="form-control" id="address" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city" class="form-label">Ciudad</label>
+                                        <input type="text" class="form-control" id="city" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="state" class="form-label">Departamento</label>
+                                        <select class="form-select" id="state" required>
+                                            <option value="">Seleccionar...</option>
+                                            <option value="LP">La Paz</option>
+                                            <option value="CB">Cochabamba</option>
+                                            <option value="SC">Santa Cruz</option>
+                                            <option value="OR">Oruro</option>
+                                            <option value="PT">Potosí</option>
+                                            <option value="TJ">Tarija</option>
+                                            <option value="CH">Chuquisaca</option>
+                                            <option value="BN">Beni</option>
+                                            <option value="PN">Pando</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="zip" class="form-label">Código Postal</label>
+                                        <input type="text" class="form-control" id="zip">
+                                    </div>
+                                </div>
+                                
+                                <h6 class="mb-3">Método de Pago</h6>
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="transfer" value="transfer" checked>
+                                        <label class="form-check-label" for="transfer">
+                                            Transferencia Bancaria
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="cash">
+                                        <label class="form-check-label" for="cash">
+                                            Efectivo al Recibir
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="card" value="card">
+                                        <label class="form-check-label" for="card">
+                                            Tarjeta de Crédito/Débito
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Notas Adicionales</label>
+                                    <textarea class="form-control" id="notes" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane me-2"></i>Enviar Pedido
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-flask me-2"></i>FarmaLab</h5>
+                    <p class="mt-3">Laboratorio farmacéutico comprometido con la salud y bienestar de nuestros clientes.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Enlaces</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Inicio</a></li>
+                        <li class="nav-item mb-2"><a href="#productos" class="nav-link p-0 text-white">Productos</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Nosotros</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">Contacto</a></li>
+                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Contacto</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><i class="fas fa-map-marker-alt me-2"></i> Av. satelite #220, el alto</li>
+                        <li class="nav-item mb-2"><i class="fas fa-phone me-2"></i> +591 60120077</li>
+                        <li class="nav-item mb-2"><i class="fas fa-envelope me-2"></i> gafa8748.gf@gmail.com</li>
+                        <li class="nav-item mb-2"><i class="fas fa-clock me-2"></i> Lunes-Viernes: 8:00-18:00</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Boletín Informativo</h5>
+                    <p>Suscríbete para recibir ofertas y novedades.</p>
+                    <form>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Tu correo" aria-label="Tu correo">
+                            <button class="btn btn-accent" type="button">Suscribir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Farmagablab. Todos los derechos reservados gabriel fernandez.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white me-3">Términos y Condiciones</a>
+                    <a href="#" class="text-white">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Variables para el producto seleccionado
+        let currentProduct = {
+            name: '',
+            price: 0,
+            img: '',
+            desc: '',
+            oldPrice: ''
+        };
+        
+        // Mostrar modal de compra
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentProduct = {
+                    name: this.dataset.name,
+                    price: parseFloat(this.dataset.price),
+                    img: this.dataset.img,
+                    desc: this.dataset.desc,
+                    oldPrice: this.parentElement.querySelector('.old-price')?.textContent || ''
+                };
+                
+                // Actualizar información en el modal
+                document.getElementById('modalProductImg').src = currentProduct.img;
+                document.getElementById('modalProductName').textContent = currentProduct.name;
+                document.getElementById('modalProductDesc').textContent = currentProduct.desc;
+                document.getElementById('modalProductPrice').textContent = `Bs. ${currentProduct.price.toFixed(2)}`;
+                
+                if(currentProduct.oldPrice) {
+                    document.getElementById('modalOldPrice').textContent = currentProduct.oldPrice;
+                    document.getElementById('modalOldPrice').style.display = 'inline';
+                } else {
+                    document.getElementById('modalOldPrice').style.display = 'none';
+                }
+                
+                // Resetear cantidad
+                document.getElementById('productQty').value = 1;
+                updateOrderSummary();
+                
+                // Mostrar modal
+                const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+                orderModal.show();
+            });
+        });
+        
+        // Manejar cantidad
+        document.getElementById('increaseQty').addEventListener('click', function() {
+            const qtyInput = document.getElementById('productQty');
+            if(parseInt(qtyInput.value) < 10) {
+                qtyInput.value = parseInt(qtyInput.value) + 1;
+                updateOrderSummary();
+            }
+        });
+        
+        document.getElementById('decreaseQty').addEventListener('click', function() {
+            const qtyInput = document.getElementById('productQty');
+            if(parseInt(qtyInput.value) > 1) {
+                qtyInput.value = parseInt(qtyInput.value) - 1;
+                updateOrderSummary();
+            }
+        });
+        
+        document.getElementById('productQty').addEventListener('change', function() {
+            if(this.value < 1) this.value = 1;
+            if(this.value > 10) this.value = 10;
+            updateOrderSummary();
+        });
+        
+        // Actualizar resumen del pedido
+        function updateOrderSummary() {
+            const quantity = parseInt(document.getElementById('productQty').value);
+            const subtotal = (currentProduct.price * quantity).toFixed(2);
+            const total = (parseFloat(subtotal) + 15).toFixed(2);
+            
+            document.getElementById('subtotal').textContent = `Bs. ${subtotal}`;
+            document.getElementById('totalPrice').textContent = `Bs. ${total}`;
+        }
+        
+        // Enviar formulario de pedido
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí normalmente enviarías los datos a tu backend
+            // Para este ejemplo, mostramos un mensaje de éxito
+            alert(`¡Gracias por su pedido, ${document.getElementById('firstName').value}!\n\nHemos recibido su pedido de ${document.getElementById('productQty').value} unidades de ${currentProduct.name} y nos pondremos en contacto para confirmar los detalles.`);
+            
+            // Cerrar el modal
+            const orderModal = bootstrap.Modal.getInstance(document.getElementById('orderModal'));
+            orderModal.hide();
+            
+            // Resetear formulario (opcional)
+            this.reset();
+        });
+    </script>
+</body>
+</html>
